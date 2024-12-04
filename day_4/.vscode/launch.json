@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ build and debug active file",
+            "name": "My file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/main.out",
@@ -12,8 +12,6 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            // Refers to the "label" field in tasks.json.
-            "preLaunchTask": "build",
         }
     ]
 }
