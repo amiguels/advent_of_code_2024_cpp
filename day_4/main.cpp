@@ -111,6 +111,64 @@ vector<vector<char>> getVerticalMatrixFrom(vector<vector<char>> matrix)
     return new_matrix;
 }
 
+vector<vector<char>> getTopDownRightLeftDiagonals(vector<vector<char>> matrix)
+{
+    vector<vector<char>> new_matrix{};
+
+    if (matrix.size() < 1)
+    {
+        return new_matrix;
+    }  
+    
+    size_t rows = matrix.size();
+    size_t cols = matrix[0].size();
+
+    for (int d = 0; d < rows + cols - 1; ++d) {
+        std::vector<char> diagonal;
+
+        for (size_t row = 0; row < rows; ++row) {
+            int col = d - row;
+            if (col >= 0 && col < static_cast<int>(cols)) {
+                diagonal.push_back(matrix[row][col]);
+            }
+        }
+        if (!diagonal.empty()) {
+            new_matrix.push_back(diagonal);
+        }
+    }
+
+    return new_matrix;
+}
+
+vector<vector<char>> getTopDownLeftRightDiagonals(vector<vector<char>> matrix)
+{
+    vector<vector<char>> new_matrix{};
+
+    if (matrix.size() < 1)
+    {
+        return new_matrix;
+    }  
+    
+    size_t rows = matrix.size();
+    size_t cols = matrix[0].size();
+
+    for (int d = 0; d < rows + cols - 1; ++d) {
+        std::vector<char> diagonal;
+        for (size_t row = 0; row < rows; ++row) {
+            int col = row - (d - static_cast<int>(cols) + 1);
+            if (col >= 0 && col < static_cast<int>(cols)) {
+                diagonal.push_back(matrix[row][col]);
+            }
+        }
+        if (!diagonal.empty()) {
+            new_matrix.push_back(diagonal);
+        }
+    }
+
+    return new_matrix;
+}
+
+
 void printMatrix(vector<vector<char>> matrix)
 {
     for( auto& line : matrix){
@@ -157,14 +215,19 @@ int main(int argc, char* argv[]){
 
     size_t count{0};
 
-    // printMatrix(chars);
     count += countOccurrencesInDatabase(chars);
     cout << endl;
 
     auto vertical_chars = getVerticalMatrixFrom(chars);
-    // printMatrix(vertical_chars);
     count += countOccurrencesInDatabase(vertical_chars);
     cout << endl;
+
+    auto top_down_left_right = getTopDownLeftRightDiagonals(chars);
+    count += countOccurrencesInDatabase(top_down_left_right);
+
+    auto top_down_right_left = getTopDownRightLeftDiagonals(chars);
+    count += countOccurrencesInDatabase(top_down_right_left);
+
 
     cout << "Count: " << count << endl;
 
