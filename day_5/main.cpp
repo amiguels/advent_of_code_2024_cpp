@@ -131,7 +131,8 @@ int main(int argc, char* argv[]){
         manuals_pages.push_back(numbers);        
     }
 
-    size_t sum_of_middle_values{0};
+    size_t sum_of_originally_ordered_middle_values{0};
+    size_t sum_of_originally_non_ordered_middle_values{0};
 
     for (auto& manual_page_numbers : manuals_pages)
     {
@@ -142,14 +143,18 @@ int main(int argc, char* argv[]){
 
         // printManualPages(new_manual_page_numbers);
 
-        bool was_original_ordered = (manual_page_numbers == new_manual_page_numbers);
-        // cout << was_original_ordered << endl;
+        size_t middle_idx = new_manual_page_numbers.size() / 2;
+        size_t middle_value = new_manual_page_numbers.at(middle_idx).number;
 
-        if(was_original_ordered)
+        if(manual_page_numbers == new_manual_page_numbers)
         {
-            size_t middle_idx = new_manual_page_numbers.size() / 2;
-            size_t middle_value = new_manual_page_numbers.at(middle_idx).number;
-            sum_of_middle_values += middle_value;
+            // Was originally ordered;            
+            sum_of_originally_ordered_middle_values += middle_value;
+        }
+        else
+        {
+            // Was originally ordered;            
+            sum_of_originally_non_ordered_middle_values += middle_value;
         }
 
         cout << endl;
@@ -157,6 +162,7 @@ int main(int argc, char* argv[]){
 
     }
 
-    cout << sum_of_middle_values << endl;
+    cout << sum_of_originally_ordered_middle_values << endl;
+    cout << sum_of_originally_non_ordered_middle_values << endl;
 
 }
